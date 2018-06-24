@@ -110,24 +110,20 @@ def exe(command):
 
 def main():
     files = []
-    branch = sha1()
     for q in Question.getNewQuestions():
         try:
             files.append(q.save())
-            branch.update(q.hash.encode(ENC))
         except QuestionValidationError as e:
             print(e)
             exit
 
     if len(files):
-        print("Pushing branch {}".format(branch.hexdigest()))
-        exe("git checkout -b {}".format(branch.hexdigest()))
         for old, new in files:
             exe("git rm -f {}".format(old))
             exe("git add {}".format(new))
         exe("git commit -m 'import_questions.py: Imported {} Questions'".format(len(files)))
-        exe("git push -u origin {}".format(branch.hexdigest()))
-
+        exe("git push -u origin master")
+        # This should only be run on 'master'
     else:
         print("Nothing to do")
 

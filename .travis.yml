@@ -14,7 +14,7 @@ jobs:
 
     - stage: test
       script:
-        - echo "$DOCKER_PASSWD" | docker login -u "$DOCKER_EMAIL" --passwd-stdin
+        - docker login -e "$DOCKER_EMAIL" -p "$DOCKER_PASSWD"
 
     - stage: build
       script:
@@ -28,9 +28,9 @@ jobs:
 
 stages:
   - name: import
-    if: commit_message =~ /^import_questions\.py/
+    if: commit_message =~ /^import_questions\.py/ AND branch = master
   - name: test
   - name: build
   - name: push
-    if: branch == master
+    if: branch = master
     
