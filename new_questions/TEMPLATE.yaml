@@ -1,0 +1,58 @@
+---
+# Template Question File
+#
+# To add a question, copy this file, change the obvious parts, and submit a Pull Request in this folder.
+# YAML is whitespace-dependent, so please check your indentation. An online YAML editor is recommended.
+#
+# Notes
+# -----
+#  - 'level' should be one of [EMR, EMT, AEMT, NRP]
+#
+#  - 'category' should be one of:
+#
+#      - "Airway" (Airway, Respiration & Ventilation)
+#      - "Cardiology" (Cardiology & Resuscitation)
+#      - "Trauma"
+#      - "Medical" (Medical/Obstetrics/Gyn)
+#      - "Operations" (EMS Operations)
+#
+#  - 'tags' is optional, and allows further refinement. Check the wiki for a list of preferred tags.
+- level: EMT
+  category: Operations
+  text: Can you pick the right answer?
+  tags:
+    - demo
+    - test
+  choices:
+    - text: Probably not
+      points: 0
+      
+    - text: Seems Possible
+      points: 0
+
+    - text: This is the best answer
+      points: 1
+
+    - text: Definitely not this one
+      points: 0
+
+- level: EMT
+  category: Trauma
+  tags: ['demo', 'test']
+  text: |
+    This is a second question. The pipe ('|') character
+    is helpful for writing multi-line questions, though there's
+    no guarantee your formatting will remain intact.
+  choices:
+    - text: Answer A
+      points: 0
+
+    - text: Answer B
+      points: 0
+
+    - text: Answers aren't guaranteed to be displayed in order and may be randomized
+      points: 1
+
+    - text: So please don't include answers like 'Both A and B are correct'
+      points: 0
+      
