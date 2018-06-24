@@ -1,0 +1,50 @@
+/**
+ * Main CSS Definitions
+ */
+html,
+body {
+    margin: 0;
+    padding: 0;
+    font-size: 100%;
+    width: 100%;
+    font-family: 'Open Sans', sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Roboto Condensed', sans-serif;
+    border-bottom: 1px solid;
+}
+
+.app-main {
+    width: 80%;
+    margin: 0 auto;
+}
+
+.question .text {
+    padding: 1em;
+    background: #fffad6;
+    font-style: italic;
+}
+
+.answers {
+    padding: 1em;
+}
+
+ul.answers li {
+    list-style: none;
+    margin: 0 auto;
+}
+
+.answer label {
+    padding: 0.5em 1em;
+    display: inline-block;
+}
+
+.answer input[type=radio]:checked + label {
+    background: #b5e0ff;
+}
+
+.answer input[type=number] {
+    padding: 0.5em;
+    font-size: 1em;
+}
