@@ -1,0 +1,20 @@
+language: python
+python:
+  - "3.6"
+install:
+  - pip install -r requirements.txt
+
+jobs:
+  include:
+    - stage: import
+      script:
+        - scripts/import_questions.py
+
+    - stage: build
+      script:
+        - docker build -t cmattoon/nremt-prep:latest .
+        - docker tag cmattoon/nremt-prep:latest cmattoon/nremt-prep:$(git log -1 --pretty=format:"%h")
+        
+stages:
+  - name: import
+    if: commit_message =~ /^import_questions\.py/

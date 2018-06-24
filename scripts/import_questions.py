@@ -7,7 +7,7 @@ import yaml
 from hashlib import sha1
 
 
-ENCODING = 'utf-8'
+ENC = 'utf-8'
 
 
 class QuestionValidationError(ValueError): pass
@@ -33,9 +33,9 @@ class Question:
         
     def _hash(self):
         sha = sha1()
-        sha.update(self.level.encode(ENCODING))
-        sha.update(self.text.encode(ENCODING))
-        [sha.update("{}={}".format(ch['text'], ch['points']).encode(ENCODING)) for ch in self.choices]
+        sha.update(self.level.encode(ENC))
+        sha.update(self.text.encode(ENC))
+        [sha.update("{}={}".format(ch['text'], ch['points']).encode(ENC)) for ch in self.choices]
         self.hash = sha.hexdigest()
         return self.hash
     
@@ -110,18 +110,28 @@ def exe(command):
 
 def main():
     files = []
+    branch = sha1()
     for q in Question.getNewQuestions():
         try:
             files.append(q.save())
+            branch.update(q.hash.encode(ENC))
         except QuestionValidationError as e:
             print(e)
             exit
 
-    for old, new in files:
-        exe("git rm -f {}".format(old))
-        exe("git add {}".format(new))
-    exe("git commit -m 'Added {} questions'".format(len(files)))
+    if len(files):
+        print("Pushing branch {}".format(branch.hexdigest()))
+        exe("git checkout -b {}".format(branch.hexdigest()))
+        for old, new in files:
+            exe("git rm -f {}".format(old))
+            exe("git add {}".format(new))
+        exe("git commit -m 'import_questions.py: Imported {} Questions'".format(len(files)))
+        exe("git push -u origin {}".format(branch.hexdigest()))
 
-        
+    else:
+        print("Nothing to do")
+
+
+
 if __name__ == '__main__':    
     main()
