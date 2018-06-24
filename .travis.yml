@@ -18,13 +18,16 @@ jobs:
 
     - stage: build
       script:
+        - TAG="${TRAVIS_COMMIT::8}"
         - docker build -t cmattoon/nremt-prep:latest .
-        - docker tag cmattoon/nremt-prep:latest cmattoon/nremt-prep:${TRAVIS_COMMIT::6}
+        - docker tag cmattoon/nremt-prep:latest cmattoon/nremt-prep:$TAG
         
     - stage: push
       script:
+        - env
+        - TAG="${TRAVIS_COMMIT::8}"
         - docker push cmattoon/nremt-prep:latest
-        - docker push cmattoon/nremt-prep:${TRAVIS_COMMIT::6}
+        - docker push cmattoon/nremt-prep:$TAG
 
 stages:
   - name: import
