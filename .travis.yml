@@ -1,20 +1,36 @@
+sudo: required
 language: python
 python:
   - "3.6"
 install:
   - pip install -r requirements.txt
-
+services:
+  - docker
 jobs:
   include:
     - stage: import
       script:
         - scripts/import_questions.py
 
+    - stage: test
+      script:
+        - echo "$DOCKER_PASSWD" | docker login -u "$DOCKER_EMAIL" --passwd-stdin
+
     - stage: build
       script:
         - docker build -t cmattoon/nremt-prep:latest .
-        - docker tag cmattoon/nremt-prep:latest cmattoon/nremt-prep:$(git log -1 --pretty=format:"%h")
+        - docker tag cmattoon/nremt-prep:latest cmattoon/nremt-prep:${TRAVIS_COMMIT::6}
         
+    - stage: push
+      script:
+        - docker push cmattoon/nremt-prep:latest
+        - docker push cmattoon/nremt-prep:${TRAVIS_COMMIT::6}
+
 stages:
   - name: import
     if: commit_message =~ /^import_questions\.py/
+  - name: test
+  - name: build
+  - name: push
+    if: branch == master
+    
