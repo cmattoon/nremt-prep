@@ -1,5 +1,7 @@
 #!/usr/bin/env python
 import os
+import shlex
+import subprocess
 import yaml
 
 from hashlib import sha1
@@ -65,7 +67,7 @@ class Question:
             text=self.text,
             stats=dict(),
         )]
-            
+        path = self._write_file()
         return self.filename, path
     
     def _write_file(self):
@@ -95,11 +97,17 @@ class Question:
         questions = []
         for root, dirs, files in os.walk(qdir):
             for f in files:
-                # if f == 'TEMPLATE.yaml': continue
+                if f == 'TEMPLATE.yaml': continue
                 path = os.path.join(root, f)
                 for q in cls.getFromFile(path):
                     yield q
-                
+def exe(command):
+    ps = subprocess.Popen(
+        shlex.split(command),
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE)
+    return ps.communicate()
+
 def main():
     files = []
     for q in Question.getNewQuestions():
@@ -112,7 +120,7 @@ def main():
     for old, new in files:
         exe("git rm -f {}".format(old))
         exe("git add {}".format(new))
-        exe("git commit -m 'Added {} questions'".format(len(files)))
+    exe("git commit -m 'Added {} questions'".format(len(files)))
 
         
 if __name__ == '__main__':    
