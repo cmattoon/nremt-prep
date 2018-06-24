@@ -16,19 +16,16 @@ jobs:
       script:
         - echo "$DOCKER_PASSWD" | docker login --username "$DOCKER_USER" --password-stdin
 
-    - stage: build
+    - stage: docker-build
       script:
         - docker build -t cmattoon/nremt-prep:latest .
-        
-    - stage: push
-      script:
         - docker push cmattoon/nremt-prep:latest
+
 
 stages:
   - name: import
     if: commit_message =~ /^import_questions\.py/ AND branch = master
   - name: test
-  - name: build
-  - name: push
+  - name: docker-build
     if: branch = master
     

@@ -10,9 +10,49 @@ body {
     font-family: 'Open Sans', sans-serif;
 }
 
+a {
+    cursor: pointer;
+    text-decoration: none;
+}
+
 h1, h2, h3, h4, h5, h6 {
     font-family: 'Roboto Condensed', sans-serif;
     border-bottom: 1px solid;
+}
+
+header.header {
+    margin: 0;
+    display: block;
+    width: 100%;
+    background: #666;
+}
+
+header.header nav.nav {
+    display: block;
+    width: 80%;
+    margin: 0 auto;
+}
+
+.header .nav-links {
+    padding: 0;
+    margin: 0;
+}
+
+.header .nav-links li {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.header .nav-links a {
+    color: #fff;
+    display: inline-block;
+    vertical-align: middle;
+    font-size: 0.9em;
+    padding: 0.5em 1em;
+}
+
+.header .nav-links a:hover {
+    color: #ddd;
 }
 
 .app-main {
@@ -20,31 +60,90 @@ h1, h2, h3, h4, h5, h6 {
     margin: 0 auto;
 }
 
-.question .text {
-    padding: 1em;
-    background: #fffad6;
-    font-style: italic;
+footer.footer {
+    border-top: 1px solid #999;
+    margin-top: 1em;
+    padding-top: 1em;
+    display: block;
+    text-align: center;
 }
 
-.answers {
-    padding: 1em;
+.footer a {
+    color: #a20034;
+    text-decoration: none;
+    font-size: 0.9em;
+    padding: 0 1em;
+}
+.footer a:hover {
+    color: #666;
+    text-decoration: none;
 }
 
-ul.answers li {
-    list-style: none;
-    margin: 0 auto;
+.splash-panels .panel {
+    display: inline-block;
+    width: 30%;
+    vertical-align:top;
+    text-align: center;
+}
+.panel .pbtn {
+    display: inline-block;
+    text-decoration: none;
+    color: #eee;
+    background: #999;
+    padding: 0.5em 2em;
+    border: 1px solid;
+}
+.panel .pbtn:hover {
+    background: #a20034;
 }
 
-.answer label {
-    padding: 0.5em 1em;
+.exam-settings .setting {
+    width: 30%;
+    display: inline-block;
+    vertical-align: top;
+    text-align: center;
+}
+
+.btnBeginExam {
+    background: #00a266;
+    color: #eee;
+    padding: 0.5em 2em;
+}
+
+.stats {
+    text-align: center;
+}
+
+.stats .stat {
     display: inline-block;
 }
 
-.answer input[type=radio]:checked + label {
-    background: #b5e0ff;
+.stat .label,
+.stat .value {
+    vertical-align: middle;
 }
 
-.answer input[type=number] {
-    padding: 0.5em;
-    font-size: 1em;
+.stat .value {
+    font-size: 3em;
+}
+
+.stats .basic-stats {
+    padding-bottom: 1em;
+    border-bottom: 1px solid;
+    margin-bottom: 2em;
+}
+
+.stats .basic-stats .stat {
+    width: 30%;
+}
+.stats .category-breakdown .stat {
+    display: block;
+    text-align: left;
+}
+
+.stats .category-breakdown .stat .label {
+    display: inline-block;
+    width: 50%;
+    text-align: right;
+    padding-right: 1em;
 }

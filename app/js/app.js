@@ -16,7 +16,7 @@ var AppViewModel = function() {
 	'NRP': [80, 150]
     };
 
-    self.showExamTips = null;
+    self.showExamTips = ko.observable(null);
     
     self.level = ko.observable('Practice Exam');
     
@@ -33,15 +33,33 @@ var AppViewModel = function() {
 	}
 	return 0;
     });
-    
-    self.numQuestions = ko.observable();
+
+    self.currentQuestionIndex = ko.observable(0);
+    self.numQuestions = ko.observable(0);
     self.questions = ko.observableArray();
     self.answers = [];
+    self.currentQuestion = ko.computed(function() {
+	return self.questions()[self.currentQuestionIndex()];
+    });
+    self.qId = ko.computed(function() {
+	return 'question' + self.currentQuestionIndex()
+    });
+    self.questionText = ko.computed(function() {
+	var q = self.currentQuestion();
+	if (!q) return '';
+	return q.text;
+    });
 
-    self.isStarted = false; // true=show quiz, false=show intro @todo #screens
+    self.questionChoices = ko.computed(function() {
+	var q = self.currentQuestion();
+	if (!q) return [];
+	return q.choices;
+    });
+    self.isStarted = ko.observable(false); // true=show quiz, false=show intro @todo #screens
+
+    // Last question has been shown
+    self.isComplete = ko.observable(true);
     
-    self.qReady = false; // set to 'true' when questions are parsed and loaded
-
     /**
      * Starts the exam
      *   - Show Exam Tips
@@ -49,11 +67,13 @@ var AppViewModel = function() {
      *   - Show Questions, one at a time
      */
     self.startExam = function() {
-	self.isStarted = true; // Hides initial screen
-	self.qReady = false;
-	if (self.showExamTips === null) {
-	    self.showExamTips = true; // Let them hit 'next'
+	console.debug("Starting Exam: " + self.level());
+	self.isStarted(true);
+	
+	if (self.showExamTips() === null) {
+	    self.showExamTips(true);
 	}
+	
 	self._loadQuestions();
 
 	if (self.numQuestions() < 1) {
@@ -61,13 +81,53 @@ var AppViewModel = function() {
 	}
 
 	self._initQuestions();
+	
     };
 
+    self.showFirstQuestion = function() {
+	self.showExamTips(false);
+	self.currentQuestionIndex(-1);
+	self.showNextQuestion();
+    };
+    
+    self.showNextQuestion = function() {
+	var idx = self.currentQuestionIndex()
+	console.log("Showing question: " + String(idx+1));
+	if ((idx+1) > self.numQuestions()+1) {
+	    self.isComplete(true);
+	    return;
+	}
+	self.currentQuestionIndex(idx + 1);
+	
+    };
+    
+    self.showPrevQuestion = function() {
+	var idx = self.currentQuestionIndex()
+	console.log("Showing question: " + String(idx));
+	if ((idx-1) > -1) {
+	    self.currentQuestionIndex(idx - 1);
+	}
+    };
+
+    
     /**
      * Loads all questions for self.level from disk or API
      */
     self._loadQuestions = function() {
-	
+
+	self.questions.push({
+	'text': 'What is the answer?',
+	'choices': [
+	    {'points': 0,
+	     'text': 'Answer A'},
+	    {'points': 0,
+	     'text': 'Answer B'},
+	    {'points': 1,
+	     'text': 'Answer C'},
+	    {'points': 0,
+	     'text': 'Answer D'}
+	]
+	});
     };
 
     /**
@@ -80,21 +140,6 @@ var AppViewModel = function() {
     };
 };
 
-var questions = [
-    {
-	'text': 'What is the answer?',
-	'choices': [
-	    {'points': 0,
-	     'text': 'Answer A'},
-	    {'points': 0,
-	     'text': 'Answer B'},
-	    {'points': 1,
-	     'text': 'Answer C'},
-	    {'points': 0,
-	     'text': 'Answer D'}
-	]
-    }
-];
 
-
-ko.applyBindings(new AppViewModel());
+// window.vm = new AppViewModel();
+// ko.applyBindings(window.vm);

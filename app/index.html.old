@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" type="text/css" href="css/main/style.css">
+    <link rel="stylesheet" type="text/css" href="css/main/theme/style.css">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700|Roboto+Condensed:400,700" rel="stylesheet">
+  </head>
+  <body>
+    <div id="app" class="app-main">
+      <div class="start-screen" data-bind="visible: !isStarted()">
+	<h1 data-bind="text: 'Start ' + level() + ' Practice Exam'"></h1>
+
+	<div class="question">
+	  <div class="text">Choose a certification level</div>
+	  <ul class="answers" data-bind="foreach: LEVELS">
+	    <li class="answer">
+	      <input type="radio" name="exam_level" data-bind="value: name, attr: {id: 'q'+$index() }, checked: $root.level">
+	      <label data-bind="text: label, attr: {for: 'q'+$index() }"></label>
+	    </li>
+	  </ul>
+	</div>
+
+	<div class="question">
+	  <div class="text">Number of Questions</div>
+	  <div class="answers">
+	    <div class="answer">
+	      <div>Recommended (<span data-bind="text: minQuestions"></span> - <span data-bind="text: maxQuestions"></span>)</div>
+	      <input type="number" data-bind="value: numQuestions">
+	    </div>
+	  </div>
+	</div>
+	<div class="question-buttons">
+	  <input type="button" value="Start" data-bind="click: $root.startExam">
+	</div>
+      </div>
+      
+      <div class="exam-tips" data-bind="visible: showExamTips">
+	<p>
+	  <strong>There is only one best answer.</strong> The items are written to determine how you would respond when providing patient care. Incorrect responses may be misunderstandings, common mistakes or inefficient approaches that represent less-than-optimal care.
+	</p>
+	<p>
+	  <strong>Examination content reflects the National EMS Educational Standards, not local or state protocols.</strong> The National Registry avoids questions on specific details that have regional differences. Some topics in EMS are controversial, and experts disagree on the single best approach to some situations. The National Registry avoids testing over controversial areas.
+	</p>
+	<p>
+	  <strong>National Registry exams focus on what providers should do in the field.</strong> The exam is not taken from any single textbook or source. The exams are intended to reflect the current accepted practices of EMS. Fortunately, most textbooks are up-to-date and written to a similar standard; however, no single source thoroughly prepares you for the exam. You are encouraged to consult multiple references, especially in areas in which you are having difficulty.
+	</p>
+	<div>
+	  <input type="button" value="Start Exam" data-bind="click: showFirstQuestion">
+	</div>
+      </div>
+      
+      <div class="question-interface" data-bind="visible: isStarted() && currentQuestionIndex < 0">
+	<div class="question">
+	  <div class="text" data-bind="text: questionText()"></div>
+	  <ul class="answers" data-bind="foreach: questionChoices()">
+	    <li class="answer">
+	      <input type="radio" data-bind="value: points, 
+					     name: 'question_' + currentQuestionIndex(), 
+					     attr: {id: 'q_' + currentQuestionIndex() + '-' + Index()}"/>
+	      <label data-bind="attr: { for: 'q_' + currentQuestionIndex() + '-' + Index()}"></label>
+	    </li>
+	  </ul>
+	</div>
+	<div class="question-buttons">
+	  <input type="button" value="Prev" data-bind="click: showPrevQuestion">
+	  <input type="button" value="Next" data-bind="click: showNextQuestion">	  
+	</div>
+      </div>
+    </div>
+    <script src="js/knockout-3.4.2.js"></script>
+    <!-- <script src="js/sammy.js"></script> -->
+    <script src="js/tags.js"></script>
+    <script src="js/models.js"></script>
+    <script src="js/app2.js"></script>
+    <script>
+      var vm = new AppViewModel();
+      ko.applyBindings(vm);
+    </script>
+  </body>
+</html>
