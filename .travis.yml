@@ -14,7 +14,7 @@ jobs:
 
     - stage: test
       script:
-        - docker login -e "$DOCKER_EMAIL" -p "$DOCKER_PASSWD"
+        - echo "$DOCKER_PASSWD" | docker login --username "$DOCKER_USER" --password-stdin
 
     - stage: build
       script:
