@@ -12,13 +12,10 @@ jobs:
       script:
         - scripts/import_questions.py
 
-    - stage: test
-      script:
-        - echo "$DOCKER_PASSWD" | docker login --username "$DOCKER_USER" --password-stdin
-
     - stage: docker-build
       script:
         - docker build -t cmattoon/nremt-prep:latest .
+        - echo "$DOCKER_PASSWD" | docker login --username "$DOCKER_USER" --password-stdin
         - docker push cmattoon/nremt-prep:latest
 
 
