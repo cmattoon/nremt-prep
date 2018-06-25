@@ -18,7 +18,6 @@ jobs:
         - echo "$DOCKER_PASSWD" | docker login --username "$DOCKER_USER" --password-stdin
         - docker push cmattoon/nremt-prep:latest
 
-
 stages:
   - name: import
     if: commit_message =~ /^import_questions\.py/ AND branch = master
