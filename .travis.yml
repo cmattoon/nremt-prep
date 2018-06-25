@@ -24,4 +24,4 @@ stages:
   - name: test
   - name: docker-build
     if: branch = master
-    
+
