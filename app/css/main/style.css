@@ -97,11 +97,22 @@ footer.footer {
     background: #a20034;
 }
 
+.exam-tips a.nremt-link {
+    color: blue;
+}
+
+.exam-settings {
+    background: #eee;
+    margin: 1em auto;
+}
+
 .exam-settings .setting {
-    width: 30%;
+    width: 33%;
+    box-sizing: border-box;
     display: inline-block;
     vertical-align: top;
     text-align: center;
+    padding: 0 0.5em 3em 0.5em;
 }
 
 .btnBeginExam {
