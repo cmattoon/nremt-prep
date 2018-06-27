@@ -81,10 +81,12 @@ footer.footer {
 
 .splash-panels .panel {
     display: inline-block;
-    width: 30%;
+    width: 33%;
     vertical-align:top;
     text-align: center;
+    box-sizing: border-box;
 }
+
 .panel .pbtn {
     display: inline-block;
     text-decoration: none;
@@ -121,6 +123,35 @@ footer.footer {
     padding: 0.5em 2em;
 }
 
+.exam {
+    margin: 1em auto;
+    padding: 1em;
+}
+
+.exam .question .text {
+    padding: 1em;
+    background: #eee;
+}
+
+.exam .question .answers,
+.exam .question .answers li.answer {
+    list-style: none;
+}
+.exam .question .answers .answer label{
+    padding: 0.5em 1em;
+    box-shadow: 1px 1px 1px #0000002e;
+    margin: 0.5em;
+}
+
+.exam .question .answers .answer label,
+.exam .question .answers .answer input[type=radio] {
+    display: inline-block;
+    vertical-align: middle;
+}
+.exam .question .answers .answer input[type=radio]:checked + label {
+    background: #eee;
+    color: #a20034;
+}
 .stats {
     text-align: center;
 }

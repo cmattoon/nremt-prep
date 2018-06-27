@@ -5,6 +5,7 @@ services:
     image: library/nginx
     volumes:
       - ./app:/usr/share/nginx/html
+      - ./data:/usr/share/nginx/html/data
     ports:
       - "8080:80"
       
