@@ -1,191 +1,24 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="nremtPrep">
   <head>
     <link rel="stylesheet" type="text/css" href="css/main/style.css">
     <link rel="stylesheet" type="text/css" href="css/main/theme/style.css">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700|Roboto+Condensed:400,700" rel="stylesheet">
+
+    <script src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.8/angular.min.js"></script>
+    <script src="js/app.js"></script>
   </head>
   <body>
-    <header class="header">
-      <nav class="nav">
-	<ul class="nav-links">
-	  <li>
-	    <a data-bind="click: setScreen('about')">Home</a>
-	  </li>
-	  <li>
-	    <a data-bind="click: setScreen('exam-options')">New Exam</a>
-	  </li>
-	  <li>
-	    <a data-bind="click: setScreen('questions')">Exam</a>
-	  </li>
-	  <li>
-	    <a data-bind="click: setScreen('review')">Review</a>
-	  </li>
-	</ul>
-      </nav>
-    </header>
-    <div id="app" class="app-main">
-
-      <div class="screen" data-bind="visible: screen() == 'about'">
-	<h1>NREMT Prep</h1>
-
-	Open Source Practice Exams
-
-	<div class="intro">
-	  <p>
-	    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ipsum metus, faucibus nec dui sit amet, venenatis fringilla arcu. Ut augue urna, posuere a mauris eget, tempor pulvinar sapien. Morbi sed eleifend tortor, bibendum tempor nisi. Phasellus fermentum ut mi at mattis. Integer eget ligula sit amet nisi vestibulum finibus. Mauris tristique velit vitae sapien bibendum, eget hendrerit nisi dictum. Vivamus at consequat dolor. Proin quam dui, euismod ullamcorper risus vel, ullamcorper venenatis diam.
-	  </p>
-	</div>
-	
-	<div class="splash-panels">
-	  <div class="panel">
-	    <h2>Begin an Exam</h2>
-	    <p>
-	      If you can see this screen, you're ready to
-	      begin an exam.
-	    </p>
-	    <a class="pbtn" data-bind="click: showExamOptions">New Exam</a>
-	  </div>
-	  <div class="panel">
-	    <h2>Submit a Question</h2>
-	    <p>
-	      Lorem ipsum dolor sit amet,  consectetur adipiscing elit.
-	    </p>
-	    <a class="pbtn" href="https://github.com/cmattoon/nremt-prep/issues">View on GitHub</a>
-	  </div>
-	  <div class="panel">
-	    <h2>Contribute Code</h2>
-	    <p>
-	      Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-	    </p>
-	    <a class="pbtn" href="https://github.com/cmattoon/nremt-prep/issues">View on GitHub</a>
-	  </div>
-	</div>
-      </div>
-      
-      <div class="screen new-quiz" data-bind="visible: screen() == 'exam-options'">
-	<h1>Begin Exam</h1>
-	
-	<div class="exam-tips">
-	  <h2>Exam Tips</h2>
-	  <a class="nremt-link" href="https://content.nremt.org/static/documents/candidate-brochure.pdf">from the NREMT</a>
-
-	  <p>
-	    <strong>There is only one best answer.</strong> The items are written to determine how you would respond when providing patient care. Incorrect responses may be misunderstandings, common mistakes or inefficient approaches that represent less-than-optimal care.
-	  </p>
-	  <p>
-	    <strong>Examination content reflects the National EMS Educational Standards, not local or state protocols.</strong> The National Registry avoids questions on specific details that have regional differences. Some topics in EMS are controversial, and experts disagree on the single best approach to some situations. The National Registry avoids testing over controversial areas.
-	  </p>
-	  <p>
-	    <strong>National Registry exams focus on what providers should do in the field.</strong> The exam is not taken from any single textbook or source. The exams are intended to reflect the current accepted practices of EMS. Fortunately, most textbooks are up-to-date and written to a similar standard; however, no single source thoroughly prepares you for the exam. You are encouraged to consult multiple references, especially in areas in which you are having difficulty.
-	  </p>
-	</div>
-
-	
-	<div class="exam-settings">
-	  <div class="setting">
-	    <h3>1. Select Exam</h3>
-
-	    <select data-bind="value: examName">
-	      <option value="EMR">EMR - Emergency Medical Responder</option>
-	      <option value="EMT">EMT - Emergency Medical Technician</option>
-	      <option value="AEMT">AEMT - Advanced EMT</option>
-	      <option value="NRP">Paramedic</option>
-	    </select>
-	    
-	  </div>
-	  <div class="setting">
-	    <h3>2. Select Number of Questions</h3>
-
-	    <input type="number" data-bind="value: desiredQuestions">
-	  </div>
-	  <div class="setting">
-	    <h3>3. Begin Exam</h3>
-	    <a class="btnBeginExam" data-bind="click: beginExam">Start</a>
-	  </div>
-	</div>
-	
-      </div>
-      
-      <div class="q-iface" data-bind="visible: screen() == 'questions'">
-	<div class="exam" data-bind="with: exam">
-	  <div class="question" data-bind="with: currentQuestion()">
-	    <div class="text" data-bind="text: text()"></div>
-	    <ul class="answers" data-bind="foreach: choices()">
-	      <li class="answer">
-		<input type="radio" name="current_question">
-		<label data-bind="text: text()"></label>
-	      </li>
-	    </ul>
-	  </div>
-	  <div class="question-buttons">
-	    <input type="button" value="Prev" data-bind="click: prevQuestion">
-	    <input type="button" value="Next" data-bind="click: nextQuestion">
-	  </div>
-	</div>
-      </div>
-      
-      <div class="screen review" data-bind="visible: screen() == 'review'">
-	<h1>Review Results</h1>
-
-	<div class="stats">
-	  <div class="basic-stats">
-	    <div class="stat">
-	      <span class="label">Correct Answers</span>
-	      <span class="value">84</span>
-	    </div>
-	    <div class="stat">
-	      <span class="label">Questions Asked</span>
-	      <span class="value">100</span>
-	    </div>
-	    <div class="stat">
-	      <span class="label">Score</span>
-	      <span class="value">84%</span>
-	    </div>
-	  </div>
-	  <div class="category-breakdown">
-	    <div class="stat">
-	      <span class="label">Airway, Breathing &amp; Ventilation</span>
-	      <span class="value">84%</span>
-	    </div>
-	    <div class="stat">
-	      <span class="label">Cardiology &amp; Resuscitation</span>
-	      <span class="value">84%</span>
-	    </div>
-	    <div class="stat">
-	      <span class="label">Trauma</span>
-	      <span class="value">84%</span>
-	    </div>
-	    <div class="stat">
-	      <span class="label">Medical/Obstetrics/Gynecology</span>
-	      <span class="value">84%</span>
-	    </div>
-	    <div class="stat">
-	      <span class="label">EMS Operations</span>
-	      <span class="value">84%</span>
-	    </div>
-	  </div>
-	</div>
-	
-      </div>
-      
-      <footer class="footer">
-	<a href="https://github.com/cmattoon/nremt-prep/wiki" title="Documentation">Documentation</a>
-	<a href="https://github.com/cmattoon/nremt-prep/issues" title="Report an Issue">Report An Issue</a>
-	<a href="https://github.com/cmattoon/nremt-prep/" title="GitHub">GitHub</a>
-	<a href="https://travis-ci.org/cmattoon/nremt-prep" title="TravisCI">TravisCI</a>
-	<a href="https://hub.docker.com/r/cmattoon/nremt-prep/" title="DockerHub">DockerHub</a>
-      </footer>
+    <div class="container">
+      <quiz/>
     </div>
-    <script src="js/knockout-3.4.2.js"></script>
-    <script src="js/jquery-3.3.1.min.js"></script>
-    <script src="js/sammy.js"></script> 
-    <script src="js/tags.js"></script>
-    <script src="js/models.js"></script>
-    <script src="js/app.js"></script>
-    <script>
-      var vm = new AppViewModel();
-      ko.applyBindings(vm);
-    </script>
+    <footer class="footer">
+      <a href="https://github.com/cmattoon/nremt-prep/wiki" title="Documentation">Documentation</a>
+      <a href="https://github.com/cmattoon/nremt-prep/issues" title="Report an Issue">Report An Issue</a>
+      <a href="https://github.com/cmattoon/nremt-prep/" title="GitHub">GitHub</a>
+      <a href="https://travis-ci.org/cmattoon/nremt-prep" title="TravisCI">TravisCI</a>
+      <a href="https://hub.docker.com/r/cmattoon/nremt-prep/" title="DockerHub">DockerHub</a>
+    </footer>
   </body>
 </html>
