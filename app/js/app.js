@@ -160,17 +160,16 @@ app.directive('quiz', function(quizFactory) {
 		// pass-fail std T
 		if ((scope.passFailLevel - scope.meanError) < scope.measure && scope.measure < (scope.passFailLevel + scope.meanError)) {
 		    // try again
-		    scope.isPassing = 1;
+		    scope.isPassing = 'IDK';
 		} else if ((scope.measure - scope.meanError) > scope.passFailLevel) {
 		    // end: pass
-		    scope.isPassing = 2;
+		    scope.isPassing = 'Passing';
 		} else if ((scope.measure + scope.meanError) < scope.passFailLevel) {
 		    // end: fail
-		    scope.isPassing = 3;
+		    scope.isPassing = 'Failing';
 		} else {
 		    // end
-		    console.warn('HERE');
-		    scope.isPassing = 4;
+		    scope.isPassing = '??? ELSE ???';
 		}
 	    };
 	    
