@@ -1,22 +1,4 @@
 <div class="quiz-area" ng-show="inProgress">
-  <ul>
-    <li>
-      scope.itemDifficulty = {{itemDifficulty}}</li>
-    <li>
-      scope.nAnswered = {{nAnswered}}</li>
-    <li>
-      scope.totalDifficulty = {{totalDifficulty}}</li>
-    <li>
-      scope.nCorrect = {{nCorrect}}</li>
-    <li>
-      scope.measure = {{measure}}</li>
-    <li>
-      scope.passFailLevel = {{passFailLevel}}</li>
-    <li>
-      scope.meanError = {{meanError}}</li>
-    <li>
-      scope.isPassing = {{isPassing}}</li>
-  </ul>
   <div ng-show="!quizOver">
     <h2 id="question">{{question}}</h2>
     <ul id="options">
@@ -43,6 +25,26 @@
     
     <div id="score">Score: {{score}}</div>
   </div>
+
+  <ul class="debug-stats">
+    <li>
+      .itemDifficulty = {{itemDifficulty}}</li>
+    <li>
+      .nAnswered = {{nAnswered}}</li>
+    <li>
+      .totalDifficulty = {{totalDifficulty}}</li>
+    <li>
+      .nCorrect = {{nCorrect}}</li>
+    <li>
+      .measure = {{measure}}</li>
+    <li>
+      .passFailLevel = {{passFailLevel}}</li>
+    <li>
+      .meanError = {{meanError}}</li>
+    <li>
+      .isPassing = {{isPassing}}</li>
+  </ul>
+
 </div>
 <div class="intro" ng-show="!inProgress">
   <h1>Click to start</h1>

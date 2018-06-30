@@ -97,3 +97,20 @@ label.answer {
     margin: 0.5em auto;
     
 }
+
+.debug-stats {
+    list-style: none;
+    background: #eee;
+    text-align: center;
+    display: block;
+    font-family: monospace;
+}
+
+.debug-stats li {
+    display: inline-block;
+    width: 22%;
+    border-right: 1px solid;
+    padding: 0 0.5em;
+    margin: 0;
+    font-size: 0.8em;
+}
